@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<footer class="footer blog-footer" th:fragment="footer-fragment">
+    <div class="blog-text-center">
+        &copy;
+<a th:text="${configurations.get('footerAbout')}"></a>  &nbsp;   • &nbsp;
+Powered by <a href=" " target="_blank" th:text="${configurations.get('footerCopyRight')}">2020</a><br/>
+ <a th:text="${configurations.get('footerICP')}"> </a>
+<span class="ft-warn">&heartsuit;</span>
+<a href=" " target="_blank"> </a>
+</div>
+</footer>
+</html>
