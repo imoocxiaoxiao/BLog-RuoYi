@@ -78,6 +78,14 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
+
+        <!--blog后台管理逻辑-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-blog</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
         
     </dependencies>
 
