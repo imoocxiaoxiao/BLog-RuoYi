@@ -83,7 +83,6 @@
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-blog</artifactId>
-            <version>4.2.0</version>
         </dependency>
 
         
