@@ -33,6 +33,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public int getTotalTags() {
         return blogTagMapper.getTotalTags(null);
     }

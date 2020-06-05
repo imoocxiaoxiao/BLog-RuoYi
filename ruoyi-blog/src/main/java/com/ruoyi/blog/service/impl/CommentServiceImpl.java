@@ -36,6 +36,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public int getTotalComments() {
         return blogCommentMapper.getTotalBlogComments(null);
     }

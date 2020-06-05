@@ -31,6 +31,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public int getTotalLinks() {
         return blogLinkMapper.getTotalLinks(null);
     }

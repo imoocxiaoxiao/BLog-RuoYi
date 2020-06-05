@@ -139,6 +139,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public int getTotalBlogs() {
         return blogMapper.getTotalBlogs(null);
     }

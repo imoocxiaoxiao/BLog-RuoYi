@@ -91,4 +91,11 @@ public class Constants
      * 资源映射路径 前缀
      */
     public static final String RESOURCE_PREFIX = "/profile";
+
+
+    /**
+     * 上传文件路径,绝对路径
+     * **/
+    public final static String FILE_UPLOAD_DIC = "E:\\GITcode\\RuoYi\\RuoYi\\ruoyi-admin\\src\\main\\resources\\static\\blog\\admin\\dist\\img\\uploadimg\\";
+
 }

@@ -32,6 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public int getTotalCategories() {
         return blogCategoryMapper.getTotalCategories(null);
     }
