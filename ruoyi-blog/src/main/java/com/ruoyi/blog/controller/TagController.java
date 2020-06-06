@@ -1,6 +1,6 @@
 package com.ruoyi.blog.controller;
 
-import com.ruoyi.blog.service.CommentService;
+import com.ruoyi.blog.service.TagService;
 import com.ruoyi.blog.util.PageQueryUtil;
 import com.ruoyi.blog.util.Result;
 import com.ruoyi.blog.util.ResultGenerator;
@@ -17,71 +17,58 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * 评论管理
+ * 标签管理
  */
 @Controller
 @RequestMapping("/blog/admin")
-public class CommentController {
+public class TagController {
 
     private String prefix = "blog";
 
     @Resource
-    private CommentService commentService;
+    private TagService tagService;
 
-    @GetMapping("/comments/list")
+    @GetMapping("/tags")
+    public String tagPage(HttpServletRequest request) {
+        request.setAttribute("path", "tags");
+        return prefix + "/tag";
+    }
+
+    @GetMapping("/tags/list")
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(commentService.getCommentsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(tagService.getBlogTagPage(pageUtil));
     }
 
-    @PostMapping("/comments/checkDone")
+
+    @PostMapping("/tags/save")
     @ResponseBody
-    public Result checkDone(@RequestBody Integer[] ids) {
-        if (ids.length < 1) {
+    public Result save(@RequestParam("tagName") String tagName) {
+        if (StringUtils.isEmpty(tagName)) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (commentService.checkDone(ids)) {
+        if (tagService.saveTag(tagName)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("审核失败");
+            return ResultGenerator.genFailResult("标签名称重复");
         }
     }
 
-    @PostMapping("/comments/reply")
-    @ResponseBody
-    public Result checkDone(@RequestParam("commentId") Long commentId,
-                            @RequestParam("replyBody") String replyBody) {
-        if (commentId == null || commentId < 1 || StringUtils.isEmpty(replyBody)) {
-            return ResultGenerator.genFailResult("参数异常！");
-        }
-        if (commentService.reply(commentId, replyBody)) {
-            return ResultGenerator.genSuccessResult();
-        } else {
-            return ResultGenerator.genFailResult("回复失败");
-        }
-    }
-
-    @PostMapping("/comments/delete")
+    @PostMapping("/tags/delete")
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (commentService.deleteBatch(ids)) {
+        if (tagService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("刪除失败");
+            return ResultGenerator.genFailResult("有关联数据请勿强行删除");
         }
-    }
-
-    @GetMapping("/comments")
-    public String list(HttpServletRequest request) {
-        request.setAttribute("path", "comments");
-        return prefix + "/comment";
     }
 
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" th:href="@{/blog/admin/dist/img/favicon.png}"/>
+<link rel="stylesheet" th:href="@{/blog/admin/dist/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/blog/admin/dist/css/ionicons.min.css}">
+<link rel="stylesheet" th:href="@{/blog/admin/dist/css/main.css}">
+<link rel="stylesheet" th:href="@{/blog/admin/plugins/bootstrap/css/bootstrap.css}"/>
+<link rel="stylesheet" th:href="@{/blog/admin/plugins/sweetalert/sweetalert.css}"/>
+<link rel="stylesheet" th:href="@{/blog/admin/plugins/jqgrid-5.3.0/ui.jqgrid-bootstrap4.css}"/>
+<link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+
+<body class="gray-bg">
+<!--<style>-->
+    <!--.ui-jqgrid tr.jqgrow td {-->
+        <!--white-space: normal !important;-->
+        <!--height: auto;-->
+        <!--vertical-align: text-top;-->
+        <!--padding-top: 2px;-->
+    <!--}-->
+<!--</style>-->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">回收站</h3>
+                </div> <!-- /.card-body -->
+                <div class="card-body">
+                    <div class="grid-btn">
+                        <button class="btn btn-success" onclick="recoveryBlog()"><i
+                                class="fa fa-plus"></i>&nbsp;恢复
+                        </button>
+                        <button class="btn btn-info" onclick="editBlog()"><i
+                                class="fa fa-edit"></i>&nbsp;修改
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteBlog()"><i
+                                class="fa fa-trash-o"></i>&nbsp;删除
+                        </button>&nbsp;&nbsp;
+                        <input type="text" placeholder="关键字(标题/分类)" id="keyword" class="form-control col-2">&nbsp;
+                        <button class="btn btn-info" onclick="search()"><i
+                                class="fa fa-search"></i>&nbsp;搜索
+                        </button>
+                    </div>
+                    <!-- JqGrid必要DOM,用于创建表格展示列表数据 -->
+                    <table id="jqGrid" class="table table-bordered"></table>
+                    <!-- JqGrid必要DOM,分页信息区域 -->
+                    <div id="jqGridPager"></div>
+                </div><!-- /.card-body -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+
+<!-- jQuery -->
+<script th:src="@{/blog/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/blog/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/blog/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/blog/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/blog/admin/plugins/jqgrid-5.3.0/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/blog/admin/plugins/jqgrid-5.3.0/grid.locale-cn.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/blog/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/blog/admin/dist/js/public.js}"></script>
+<script th:src="@{/blog/admin/dist/js/recycle.js}"></script>
+</body>
+</html>

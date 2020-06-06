@@ -3,25 +3,22 @@ package com.ruoyi.blog.controller;
 import com.ruoyi.blog.entity.Blog;
 import com.ruoyi.blog.service.BlogService;
 import com.ruoyi.blog.service.CategoryService;
-import com.ruoyi.blog.service.CommentService;
-import com.ruoyi.blog.service.LinkService;
-import com.ruoyi.blog.service.TagService;
 import com.ruoyi.blog.util.MyBlogUtils;
 import com.ruoyi.blog.util.PageQueryUtil;
 import com.ruoyi.blog.util.Result;
 import com.ruoyi.blog.util.ResultGenerator;
-import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.enums.DataSourceType;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -34,59 +31,45 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
+
 /**
- * 博客管理
- *  @author Lin
+ * author : Lin
+ * 回收站管理
  */
 @Controller
 @RequestMapping("/blog/admin")
-public class BlogAdminController extends BaseController {
-
+public class RecycleController {
 
     private String prefix = "blog";
 
-    @Autowired
+    @Resource
     private BlogService blogService;
-    @Autowired
+    @Resource
     private CategoryService categoryService;
-    @Autowired
-    private LinkService linkService;
-    @Autowired
-    private TagService tagService;
-    @Autowired
-    private CommentService commentService;
 
-    /**
-     * 仪表盘
-     * Dashboard
-     */
-    @RequiresPermissions("blog:admin:dash:view")
-    @GetMapping(value = "/dash")
-    public String index(ModelMap mmap) {
-
-        mmap.put("categoryCount", categoryService.getTotalCategories());
-        mmap.put("blogCount", blogService.getTotalBlogs());
-        mmap.put("linkCount", linkService.getTotalLinks());
-        mmap.put("tagCount", tagService.getTotalTags());
-        mmap.put("commentCount", commentService.getTotalComments());
-        return prefix + "/dash";    // 不要轻易使用index
+    @GetMapping("/recycle/list")
+    @ResponseBody
+    public Result list(@RequestParam Map<String, Object> params) {
+        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        PageQueryUtil pageUtil = new PageQueryUtil(params);
+        return ResultGenerator.genSuccessResult(blogService.getBlogsPageByDeleted(pageUtil));
     }
 
-    /**
-     * 发布博客
-     */
-    @RequiresPermissions("blog:admin:blogs:add")
-    @GetMapping(value = "/edit")
-    public String edit(ModelMap mmap) {
-        mmap.put("categories", categoryService.getAllCategories());
+
+    @GetMapping("/recycle")
+    public String list(HttpServletRequest request) {
+        return prefix + "/recycle";
+    }
+
+    @GetMapping("/recycle/edit")
+    public String edit(HttpServletRequest request) {
+        request.setAttribute("categories", categoryService.getAllCategories());
         return prefix + "/blog_edit";
     }
 
-    /**
-     * 博客修改
-     */
-    @RequiresPermissions("blog:admin:blogs:edit")
-    @GetMapping(value = "/edit/{blogId}")
+    @GetMapping("/recycle/edit/{blogId}")
     public String edit(HttpServletRequest request, @PathVariable("blogId") Long blogId) {
         Blog blog = blogService.getBlogById(blogId);
         if (blog == null) {
@@ -97,34 +80,7 @@ public class BlogAdminController extends BaseController {
         return prefix + "/blog_edit";
     }
 
-    /**
-     * 博客管理
-     */
-    @RequiresPermissions("blog:admin:blogs:view")
-    @GetMapping(value = "/blogs")
-    public String list(HttpServletRequest request) {
-        return prefix + "/blog";
-    }
-
-    /**
-     * 博客列表 (查)
-     */
-    @RequiresPermissions("blog:admin:blogs:list")
-    @GetMapping(value = "/blogs/list")
-    @ResponseBody
-    public Result list(@RequestParam Map<String, Object> params) {
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
-        }
-        PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(blogService.getBlogsPage(pageUtil));
-    }
-
-    /**
-     * 保存文章
-     */
-    @RequiresPermissions("blog:admin:blogs:save")
-    @PostMapping(value = "/blogs/save")
+    @PostMapping("/recycle/save")
     @ResponseBody
     public Result save(@RequestParam("blogTitle") String blogTitle,
                        @RequestParam(name = "blogSubUrl", required = false) String blogSubUrl,
@@ -167,7 +123,6 @@ public class BlogAdminController extends BaseController {
         blog.setBlogCoverImage(blogCoverImage);
         blog.setBlogStatus(blogStatus);
         blog.setEnableComment(enableComment);
-
         String saveBlogResult = blogService.saveBlog(blog);
         if ("success".equals(saveBlogResult)) {
             return ResultGenerator.genSuccessResult("添加成功");
@@ -176,11 +131,7 @@ public class BlogAdminController extends BaseController {
         }
     }
 
-    /**
-     * 更新文章
-     */
-    @RequiresPermissions("blog:admin:blogs:edit")
-    @PostMapping("/blogs/update")
+    @PostMapping("/recycle/update")
     @ResponseBody
     public Result update(@RequestParam("blogId") Long blogId,
                          @RequestParam("blogTitle") String blogTitle,
@@ -225,7 +176,6 @@ public class BlogAdminController extends BaseController {
         blog.setBlogCoverImage(blogCoverImage);
         blog.setBlogStatus(blogStatus);
         blog.setEnableComment(enableComment);
-
         String updateBlogResult = blogService.updateBlog(blog);
         if ("success".equals(updateBlogResult)) {
             return ResultGenerator.genSuccessResult("修改成功");
@@ -234,10 +184,7 @@ public class BlogAdminController extends BaseController {
         }
     }
 
-    /**
-     * 上传文件
-     */
-    @PostMapping("/blogs/md/uploadfile")
+    @PostMapping("/recycle/md/uploadfile")
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
                                      @RequestParam(name = "editormd-image-file", required = true)
@@ -275,22 +222,33 @@ public class BlogAdminController extends BaseController {
         }
     }
 
-    /**
-     * 删除文章
-     */
-    @RequiresPermissions("blog:admin:blogs:remove")
-    @PostMapping("/blogs/delete")
+    //gan 在博客管理页面的删除只是把它放到回收站,在回收站删除才是真的删除
+    @PostMapping("/recycle/delete")
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (blogService.deleteBatch(ids)) {
+        if (blogService.deleteBlogById(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");
         }
     }
 
+    //gan 恢复
+    @PostMapping("/recycle/recovery")
+    @ResponseBody
+    public Result recovery(@RequestBody Integer[] ids) {
+        if (ids.length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+
+        if (blogService.recoveryBatch(ids)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("恢复失败");
+        }
+    }
 
 }
