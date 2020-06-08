@@ -11,6 +11,9 @@
 
     <artifactId>ruoyi-blog</artifactId>
 
+    <description>
+        blog管理模块
+    </description>
 
     <dependencies>
 

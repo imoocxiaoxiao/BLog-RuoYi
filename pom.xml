@@ -202,6 +202,13 @@
 	            <artifactId>ruoyi-common</artifactId>
 	            <version>${ruoyi.version}</version>
 	        </dependency>
+
+			<!-- blog 后台管理-->
+			<dependency>
+				<groupId>com.ruoyi</groupId>
+				<artifactId>ruoyi-blog</artifactId>
+				<version>${ruoyi.version}</version>
+			</dependency>
 	        
         </dependencies>
     </dependencyManagement>
@@ -211,9 +218,9 @@
 		<module>ruoyi-framework</module>
 		<module>ruoyi-system</module>
 		<module>ruoyi-quartz</module>
+		<module>ruoyi-blog</module>
 		<module>ruoyi-generator</module>
         <module>ruoyi-common</module>
-		<module>ruoyi-blog</module>
 	</modules>
 
     <packaging>pom</packaging>
