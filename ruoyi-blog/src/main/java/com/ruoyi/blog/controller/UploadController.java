@@ -22,13 +22,16 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- *
+ * 图片上传
+ * @author Lin
  */
 @Controller
 @RequestMapping("/blog/admin")
 public class UploadController {
 
-    // 上传图片
+    /**
+     * 图片上传
+     */
     @PostMapping({"/upload/file"})
     @ResponseBody
     public Result upload(HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws URISyntaxException {

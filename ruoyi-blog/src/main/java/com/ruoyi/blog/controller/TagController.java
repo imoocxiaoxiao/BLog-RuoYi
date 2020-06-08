@@ -4,6 +4,7 @@ import com.ruoyi.blog.service.TagService;
 import com.ruoyi.blog.util.PageQueryUtil;
 import com.ruoyi.blog.util.Result;
 import com.ruoyi.blog.util.ResultGenerator;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 /**
  * 标签管理
+ * @author Lin
  */
 @Controller
 @RequestMapping("/blog/admin")
@@ -28,12 +30,20 @@ public class TagController {
     @Resource
     private TagService tagService;
 
+    /**
+     * 标签管理页
+     */
+    @RequiresPermissions("blog:admin:tags:view")
     @GetMapping("/tags")
     public String tagPage(HttpServletRequest request) {
         request.setAttribute("path", "tags");
         return prefix + "/tag";
     }
 
+    /**
+     * 标签管理列表数据
+     */
+    @RequiresPermissions("blog:admin:tags:view")
     @GetMapping("/tags/list")
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
@@ -44,7 +54,10 @@ public class TagController {
         return ResultGenerator.genSuccessResult(tagService.getBlogTagPage(pageUtil));
     }
 
-
+    /**
+     * 保存
+     */
+    @RequiresPermissions("blog:admin:tags:add")
     @PostMapping("/tags/save")
     @ResponseBody
     public Result save(@RequestParam("tagName") String tagName) {
@@ -58,6 +71,10 @@ public class TagController {
         }
     }
 
+    /**
+     * 删除
+     */
+    @RequiresPermissions("blog:admin:tags:remove")
     @PostMapping("/tags/delete")
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
@@ -70,6 +87,5 @@ public class TagController {
             return ResultGenerator.genFailResult("有关联数据请勿强行删除");
         }
     }
-
 
 }

@@ -1,6 +1,6 @@
 package com.blog.service.impl;
 
-import com.blog.dao.BlogCommentMapper;
+import com.blog.mapper.BlogCommentMapper;
 import com.blog.entity.BlogComment;
 import com.blog.service.CommentService;
 import com.blog.util.PageQueryUtil;

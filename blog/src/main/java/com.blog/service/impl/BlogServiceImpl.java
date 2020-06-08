@@ -2,7 +2,7 @@ package com.blog.service.impl;
 
 import com.blog.controller.vo.BlogDetailVO;
 import com.blog.controller.vo.BlogListVO;
-import com.blog.dao.*;
+import com.blog.mapper.*;
 import com.blog.entity.Blog;
 import com.blog.entity.BlogCategory;
 import com.blog.entity.BlogTag;

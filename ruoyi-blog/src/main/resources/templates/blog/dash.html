@@ -1,25 +1,22 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<header th:replace="admin/header::header-fragment"></header>-->
 
-<!-- Tell the browser to be responsive to screen width -->
+<!-- head -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
 <link rel="shortcut icon" th:href="@{/blog/admin/dist/img/favicon.png}"/>
 <link rel="stylesheet" th:href="@{/blog/admin/dist/css/font-awesome.min.css}">
-<!-- Ionicons -->
 <link rel="stylesheet" th:href="@{/blog/admin/dist/css/ionicons.min.css}">
 <link rel="stylesheet" th:href="@{/blog/admin/dist/css/main.css}">
 <link rel="stylesheet" th:href="@{/blog/admin/plugins/bootstrap/css/bootstrap.css}"/>
 <link rel="stylesheet" th:href="@{/blog/admin/plugins/sweetalert/sweetalert.css}"/>
 <link rel="stylesheet" th:href="@{/blog/admin/plugins/jqgrid-5.3.0/ui.jqgrid-bootstrap4.css}"/>
-<!-- Theme style -->
+<link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+<!-- head -->
+
 <link rel="stylesheet" th:href="@{/blog/admin/dist/css/adminlte.min.css}">
 
-<link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
-
-<!--去掉xy轴的滚动条  -->
-<body  class="hold-transition sidebar-mini  gray-bg" >
+<!--去掉xy轴的滚动条  hold-transition sidebar-mini -->
+<body class="gray-bg" >
 
      <!--Main content-->
     <div class="content" >
@@ -108,21 +105,21 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-dark">
-                        <div class="inner">
-                            <h3 th:text="${linkCount}">65</h3>
+                <!--<div class="col-lg-4 col-6">-->
+                    <!--&lt;!&ndash; small box &ndash;&gt;-->
+                    <!--<div class="small-box bg-dark">-->
+                        <!--<div class="inner">-->
+                            <!--<h3 th:text="${linkCount}">65</h3>-->
 
-                            <p>友情链接</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-heart"></i>
-                        </div>
-                        <a th:href="@{/blog/admin/links}" class="small-box-footer">More info <i
-                                class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                            <!--<p>友情链接</p>-->
+                        <!--</div>-->
+                        <!--<div class="icon">-->
+                            <!--<i class="fa fa-heart"></i>-->
+                        <!--</div>-->
+                        <!--<a th:href="@{/blog/admin/links}" class="small-box-footer">More info <i-->
+                                <!--class="fa fa-arrow-circle-right"></i></a>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!-- ./col -->
             </div>
         </div><!-- /.container-fluid -->

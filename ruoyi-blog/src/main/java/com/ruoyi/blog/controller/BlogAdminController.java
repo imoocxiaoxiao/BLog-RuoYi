@@ -4,16 +4,13 @@ import com.ruoyi.blog.entity.Blog;
 import com.ruoyi.blog.service.BlogService;
 import com.ruoyi.blog.service.CategoryService;
 import com.ruoyi.blog.service.CommentService;
-import com.ruoyi.blog.service.LinkService;
 import com.ruoyi.blog.service.TagService;
 import com.ruoyi.blog.util.MyBlogUtils;
 import com.ruoyi.blog.util.PageQueryUtil;
 import com.ruoyi.blog.util.Result;
 import com.ruoyi.blog.util.ResultGenerator;
-import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.enums.DataSourceType;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -42,15 +38,14 @@ import java.util.Random;
 @RequestMapping("/blog/admin")
 public class BlogAdminController extends BaseController {
 
-
     private String prefix = "blog";
 
     @Autowired
     private BlogService blogService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private LinkService linkService;
+//    @Autowired
+//    private LinkService linkService;
     @Autowired
     private TagService tagService;
     @Autowired
@@ -66,10 +61,10 @@ public class BlogAdminController extends BaseController {
 
         mmap.put("categoryCount", categoryService.getTotalCategories());
         mmap.put("blogCount", blogService.getTotalBlogs());
-        mmap.put("linkCount", linkService.getTotalLinks());
+//        mmap.put("linkCount", linkService.getTotalLinks());
         mmap.put("tagCount", tagService.getTotalTags());
         mmap.put("commentCount", commentService.getTotalComments());
-        return prefix + "/dash";    // 不要轻易使用index
+        return prefix + "/dash";    // 坑点:不要轻易返回index(非主页html不要轻易命名文件为index)
     }
 
     /**
@@ -180,7 +175,7 @@ public class BlogAdminController extends BaseController {
      * 更新文章
      */
     @RequiresPermissions("blog:admin:blogs:edit")
-    @PostMapping("/blogs/update")
+    @PostMapping(value = "/blogs/update")
     @ResponseBody
     public Result update(@RequestParam("blogId") Long blogId,
                          @RequestParam("blogTitle") String blogTitle,
@@ -237,7 +232,7 @@ public class BlogAdminController extends BaseController {
     /**
      * 上传文件
      */
-    @PostMapping("/blogs/md/uploadfile")
+    @PostMapping(value = "/blogs/md/uploadfile")
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
                                      @RequestParam(name = "editormd-image-file", required = true)
@@ -279,7 +274,7 @@ public class BlogAdminController extends BaseController {
      * 删除文章
      */
     @RequiresPermissions("blog:admin:blogs:remove")
-    @PostMapping("/blogs/delete")
+    @PostMapping(value = "/blogs/delete")
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
@@ -291,6 +286,5 @@ public class BlogAdminController extends BaseController {
             return ResultGenerator.genFailResult("删除失败");
         }
     }
-
 
 }

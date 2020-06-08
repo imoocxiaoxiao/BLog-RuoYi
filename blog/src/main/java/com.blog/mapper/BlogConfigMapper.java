@@ -1,4 +1,5 @@
-package com.blog.dao;
+package com.blog.mapper;
+
 
 
 import com.blog.entity.BlogConfig;

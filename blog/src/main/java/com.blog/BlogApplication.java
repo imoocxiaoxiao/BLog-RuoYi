@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  */
-@MapperScan("com.blog.dao")
+@MapperScan("com.blog.mapper")
 @SpringBootApplication
 public class BlogApplication {
     public static void main(String[] args) {

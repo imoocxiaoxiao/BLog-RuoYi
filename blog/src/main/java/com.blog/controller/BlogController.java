@@ -2,12 +2,10 @@ package com.blog.controller;
 
 import com.blog.controller.vo.BlogDetailVO;
 import com.blog.entity.BlogComment;
-import com.blog.entity.BlogLink;
 import com.blog.service.BlogService;
 import com.blog.service.CategoryService;
 import com.blog.service.CommentService;
 import com.blog.service.ConfigService;
-import com.blog.service.LinkService;
 import com.blog.service.TagService;
 import com.blog.util.MyBlogUtils;
 import com.blog.util.PageResult;
@@ -21,27 +19,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
 
 
 /**
- *
+ * blog 前台首页
+ * @author Lin
  */
 @Controller
 public class BlogController {
 
-    public static String theme = "amaze";
+    public static String theme = "blog/amaze";
     @Resource
     private BlogService blogService;
     @Resource
     private TagService tagService;
-    @Resource
-    private LinkService linkService;
     @Resource
     private CommentService commentService;
     @Resource
@@ -74,11 +68,10 @@ public class BlogController {
         request.setAttribute("newBlogs", blogService.getBlogListForIndexPage(1));
         request.setAttribute("hotBlogs", blogService.getBlogListForIndexPage(0));
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
-        //gan 获取所以分类
-        request.setAttribute("categoryCount", categoryService.getAllCategories());
+        request.setAttribute("categoryCount", categoryService.getAllCategories());   // 获取所以分类
         request.setAttribute("pageName", "首页");
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/index";
+        return theme + "/index";
     }
 
     /**
@@ -94,7 +87,7 @@ public class BlogController {
         request.setAttribute("categories", categoryService.getAllCategories());
         request.setAttribute("pageName", "分类页面");
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/category";
+        return theme + "/category";
     }
 
     /**
@@ -111,7 +104,7 @@ public class BlogController {
         }
         request.setAttribute("pageName", "详情");
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/detail";
+        return theme + "/detail";
     }
 
     /**
@@ -142,7 +135,7 @@ public class BlogController {
         request.setAttribute("categoryCount", categoryService.getAllCategories());
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/list";
+        return theme + "/list";
     }
 
     /**
@@ -173,7 +166,7 @@ public class BlogController {
         request.setAttribute("categoryCount", categoryService.getAllCategories());
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/list";
+        return theme + "/list";
     }
 
     /**
@@ -204,34 +197,10 @@ public class BlogController {
         request.setAttribute("categoryCount", categoryService.getAllCategories());
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/list";
+        return theme + "/list";
     }
 
 
-    /**
-     * 友情链接页
-     *
-     * @return
-     */
-    @GetMapping({"/link"})
-    public String link(HttpServletRequest request) {
-        request.setAttribute("pageName", "友情链接");
-        Map<Byte, List<BlogLink>> linkMap = linkService.getLinksForLinkPage();
-        if (linkMap != null) {
-            //判断友链类别并封装数据 0-友链 1-推荐 2-个人网站
-            if (linkMap.containsKey((byte) 0)) {
-                request.setAttribute("favoriteLinks", linkMap.get((byte) 0));
-            }
-            if (linkMap.containsKey((byte) 1)) {
-                request.setAttribute("recommendLinks", linkMap.get((byte) 1));
-            }
-            if (linkMap.containsKey((byte) 2)) {
-                request.setAttribute("personalLinks", linkMap.get((byte) 2));
-            }
-        }
-        request.setAttribute("configurations", configService.getAllConfigs());
-        return "blog/" + theme + "/link";
-    }
 
     /**
      * 评论操作
@@ -297,7 +266,7 @@ public class BlogController {
             request.setAttribute("blogDetailVO", blogDetailVO);
             request.setAttribute("pageName", subUrl);
             request.setAttribute("configurations", configService.getAllConfigs());
-            return "blog/" + theme + "/detail";
+            return theme + "/detail";
         } else {
             return "error/error_400";
         }

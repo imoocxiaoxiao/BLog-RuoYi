@@ -1,7 +1,7 @@
 package com.blog.service.impl;
 
-import com.blog.dao.BlogCategoryMapper;
-import com.blog.dao.BlogMapper;
+import com.blog.mapper.BlogCategoryMapper;
+import com.blog.mapper.BlogMapper;
 import com.blog.entity.BlogCategory;
 import com.blog.service.CategoryService;
 import com.blog.util.PageQueryUtil;

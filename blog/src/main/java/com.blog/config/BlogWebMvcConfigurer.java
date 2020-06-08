@@ -1,9 +1,6 @@
 package com.blog.config;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -12,7 +9,8 @@ public class BlogWebMvcConfigurer implements WebMvcConfigurer {
 
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-       registry.addResourceHandler("/upload/**").addResourceLocations("file:" + Constants.FILE_UPLOAD_DIC);
+
+        registry.addResourceHandler("/blog/admin/**").addResourceLocations("file:" + Constants.BLOG_ADMIN_STATIC);
 
         //当部署在其他系统上时，这个可以给到参考与提示作用
 //        String os = System.getProperty("os.name");

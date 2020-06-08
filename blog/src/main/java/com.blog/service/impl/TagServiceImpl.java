@@ -1,7 +1,7 @@
 package com.blog.service.impl;
 
-import com.blog.dao.BlogTagMapper;
-import com.blog.dao.BlogTagRelationMapper;
+import com.blog.mapper.BlogTagMapper;
+import com.blog.mapper.BlogTagRelationMapper;
 import com.blog.entity.BlogTag;
 import com.blog.entity.BlogTagCount;
 import com.blog.service.TagService;

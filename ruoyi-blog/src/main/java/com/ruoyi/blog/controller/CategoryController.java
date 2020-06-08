@@ -4,6 +4,7 @@ import com.ruoyi.blog.service.CategoryService;
 import com.ruoyi.blog.util.PageQueryUtil;
 import com.ruoyi.blog.util.Result;
 import com.ruoyi.blog.util.ResultGenerator;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 /**
  * 分类管理
+ * @author Lin
  */
 @Controller
 @RequestMapping("/blog/admin")
@@ -28,7 +30,11 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
 
-    @GetMapping("/categories")
+    /**
+     * 分类页
+     */
+    @RequiresPermissions("blog:admin:categories:view")
+    @GetMapping(value = "/categories")
     public String categoryPage(HttpServletRequest request) {
         request.setAttribute("path", "categories");
         return prefix + "/category";
@@ -37,6 +43,7 @@ public class CategoryController {
     /**
      * 分类列表
      */
+    @RequiresPermissions("blog:admin:categories:view")
     @RequestMapping(value = "/categories/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
@@ -50,6 +57,7 @@ public class CategoryController {
     /**
      * 分类添加
      */
+    @RequiresPermissions("blog:admin:categories:add")
     @RequestMapping(value = "/categories/save", method = RequestMethod.POST)
     @ResponseBody
     public Result save(@RequestParam("categoryName") String categoryName,
@@ -64,10 +72,10 @@ public class CategoryController {
         }
     }
 
-
     /**
      * 分类修改
      */
+    @RequiresPermissions("blog:admin:categories:edit")
     @RequestMapping(value = "/categories/update", method = RequestMethod.POST)
     @ResponseBody
     public Result update(@RequestParam("categoryId") Integer categoryId,
@@ -83,10 +91,10 @@ public class CategoryController {
         }
     }
 
-
     /**
      * 分类删除
      */
+    @RequiresPermissions("blog:admin:categories:remove")
     @RequestMapping(value = "/categories/delete", method = RequestMethod.POST)
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {

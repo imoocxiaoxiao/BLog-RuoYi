@@ -1,4 +1,4 @@
-package com.blog.dao;
+package com.blog.mapper;
 
 import com.blog.entity.BlogTagRelation;
 import org.apache.ibatis.annotations.Param;
