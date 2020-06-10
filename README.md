@@ -64,6 +64,6 @@
     </tr>
 	<tr>
         <td><img src="https://oscimg.oschina.net/oscnet/bed2b98a44e7ae820c2885329e711965c28.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-6d73c2140ce694e3de4c05035fdc1868d4c.png"/></td>
+  
     </tr>
 </table>
