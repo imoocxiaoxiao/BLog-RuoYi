@@ -27,7 +27,7 @@
 <table>
     <tr>
         <td><a href="http://doc.ruoyi.vip/">RuoYi官网 </a></td>
-        <td></td>
+        <td><img src="https://oscimg.oschina.net/oscnet/25b5e333768d013d45a990c152dbe4d9d6e.jpg"/></td>
     </tr>
     <tr>
         <td><img src="https://gitee.com/dopalin/projectDemoImage/raw/master/demoImage/demo2.png"/></td>
