@@ -29,8 +29,7 @@
 		
 	<tr>
 		<a href="http://doc.ruoyi.vip/">RuoYi官网 </a>
-	</tr>
-    <tr>
+
 	    <a href="https://gitee.com/dopalin/projectDemoImage">项目演示地址 </a>
     </tr>
 
