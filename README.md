@@ -64,6 +64,8 @@
     </tr>
 	<tr>
         <td><img src="https://oscimg.oschina.net/oscnet/bed2b98a44e7ae820c2885329e711965c28.jpg"/></td>
+	<tr>
+        <td><img src="https://gitee.com/dopalin/projectDemoImage/blob/master/demoImage/demo1.png"/></td>
   
     </tr>
 </table>
